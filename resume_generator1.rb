@@ -1,52 +1,39 @@
-require 'prawn'
+require_relative 'format_lister'
 
-$headers = [:Name, :Age, :Education, :Place, :Marital_status ]
 class UserInterface
 
-  attr_reader :user_info, :user_choice
+  attr_reader :info, :choice
   
   def initialize
-    @intro = "Welcome to the Resume Generator program please enter 
-              your details to export your resume in desired format"
-    #@headers = [:Name, :Age, :Education, :Place, :Marital_status ]
+    @details = [:Name, :Age, :Education, :Place, :Marital_status ]
   end
 
   def display_intro
-    puts @intro
+    puts "Welcome to the Resume Generator program please enter 
+          your details to export your resume in desired format"
   end
 
   def collect_user_info
-    @user_info = Hash.new
-    $headers.each do |key|
+    @info = Hash.new
+    @details.each do |key|
       puts key.to_s + ":"
-      @user_info[key] = gets
+      @info[key] = gets
     end
   end
   
   def get_user_choice
     puts "please enter the desired file format to save your resume details"
-    @user_choice = gets.upcase
+    @choice = gets.upcase
   end
 
 end
 
-class FactoryClass 
-
-  def load_modules(user_choice)
-    @modules = Array.new
-    Dir[File.join(File.dirname(__FILE__), 'modules', '*.rb')].each do |file| 
-      require file
-    end
-    class_name = File.basename("Generate"+user_choice.strip, '.rb')
-    obj = Object.const_get(class_name)
-  end
-end
-
-user = UserInterface.new
-user.display_intro
-user.collect_user_info
-user.get_user_choice
-file_format = FactoryClass.new
-obj = file_format.load_modules(user.user_choice)
-obj.export_user_info(user.user_info)
+user_interface = UserInterface.new
+user_interface.display_intro
+user_interface.collect_user_info
+user_interface.get_user_choice
+format_lister = FormatLister.new
+format_lister.load_modules
+desired_class = format_lister.create_format_object(user_interface.choice)
+desired_class.export_user_info(user_interface.info)
 at_exit{puts "Thank you. Bye"}
