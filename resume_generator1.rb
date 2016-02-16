@@ -5,7 +5,7 @@ class UserInterface
   attr_reader :info, :choice
   
   def initialize
-    @details = [:Name, :Age, :Education, :Place, :Marital_status ]
+    @details = [:name, :age, :education, :place, :marital_status ]
   end
 
   def display_intro
@@ -17,13 +17,13 @@ class UserInterface
     @info = Hash.new
     @details.each do |key|
       puts key.to_s + ":"
-      @info[key] = gets
+      @info[key] = gets.chomp
     end
   end
   
   def get_user_choice
-    puts "please enter the desired file format to save your resume details"
-    @choice = gets.upcase
+    puts "please enter the desired file format to save your resume details"    
+    @choice = gets.chomp.upcase
   end
 
 end

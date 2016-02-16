@@ -1,7 +1,6 @@
 class GenerateCSV
   def self.export_user_info(info)
-    puts info 
-    file = File.open(info[:Name].strip+".csv", "w+")
+    file = File.open(info[:name]+".csv", "w+")
     info.each do |key, value|
       file << "#{key}, #{value}\n"
     end

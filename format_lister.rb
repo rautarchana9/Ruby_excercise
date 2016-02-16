@@ -7,7 +7,7 @@ class FormatLister
   end
 
   def create_format_object(choice)
-    class_name = File.basename("Generate"+ choice.strip, '.rb')
+    class_name = File.basename("Generate"+ choice, '.rb')
     Object.const_get(class_name)
   end
 end
