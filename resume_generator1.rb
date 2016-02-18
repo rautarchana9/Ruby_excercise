@@ -21,7 +21,7 @@ class UserInterface
   
   def get_user_choice
     puts "please enter the desired file format to save your resume details"
-      @choice = gets.chomp.upcase
+      @choice = gets.chomp.downcase
   end
 
 end

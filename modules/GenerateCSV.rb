@@ -1,4 +1,4 @@
-class GenerateCSV
+class CsvGenerator
   def self.export_user_info(info)
     file = File.open(info[:name]+".csv", "w+")
     info.each do |key, value|
